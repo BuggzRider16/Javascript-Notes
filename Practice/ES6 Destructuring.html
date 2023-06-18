@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <title>Section 7: Get Ready for the Future: ES6 / ES2015</title>
+
+  <style>
+    .box {
+      width: 200px;
+      padding: 60px;
+      text-align: center;
+      font-size: 30px;
+      margin-top: 50px;
+    }
+
+    .green {
+      background-color: green;
+    }
+
+    .blue {
+      background-color: dodgerblue;
+    }
+
+    .orange {
+      background-color: orangered;
+    }
+  </style>
+</head>
+
+<body>
+  <h1>Section 7: Get Ready for the Future: ES6 / ES2015</h1>
+
+  <div class="box green">I'm green!</div>
+  <div class="box blue">I'm blue!</div>
+  <div class="box orange">I'm orange!</div>
+
+  <script>
+    const restaurant = {
+      name: "Classico Italiano",
+      location: "Via Angelo Tavanti 23, Firenze, Italy",
+      categories: ["Italian", "Pizzeria", "Vegetarian", "Organic"],
+      starterMenu: [
+        "Focaccia",
+        "Bruschetta",
+        "Garlic Bread",
+        "Caprese Salad",
+      ],
+      mainMenu: ["Pizza", "Pasta", "Risotto"],
+
+      // ES6 enhanced object literals
+      openingHours,
+
+      order(starterIndex, mainIndex) {
+        return [this.starterMenu[starterIndex], this.mainMenu[mainIndex]]
+      },
+
+      orderDelivery({
+        starterIndex = 1,
+        mainIndex = 0,
+        time = "20:00",
+        address,
+      }) {
+        console.log(
+          `Order received! ${this.starterMenu[starterIndex]} and ${this.mainMenu[mainIndex]} will be delivered to ${address} at ${time}`
+        )
+      },
+
+      orderPasta(ing1, ing2, ing3) {
+        console.log(
+          `Here is your declicious pasta with ${ing1}, ${ing2} and ${ing3}`
+        )
+      },
+
+      orderPizza(mainIngredient, ...otherIngredients) {
+        console.log(mainIngredient)
+        console.log(otherIngredients)
+      },
+    }
+
+    /*
+     -) Destructuring is a process of breaking a data structure back to variables
+    */
+
+    /* ========== Arrays============*/
+    const [name1, age] = ["john", 36]
+    console.log(name1, age)
+
+    // to skip a property from an array
+    let [main, , secondary] = restaurant.categories
+    console.log(main, secondary)
+
+    //to swap two variables
+    [main, secondary] = [secondary, main]
+
+    // Receive 2 return values from a function
+    const [starter, mainCourse] = restaurant.order(2, 0)
+    console.log(starter, mainCourse)
+
+    // Nested destructuring
+    const nested = [2, 4, [5, 6]]
+    // const [i, , j] = nested
+    const [i, , [j, k]] = nested
+    console.log(i, j, k)
+
+    // Default values
+    const [p = 1, q = 1, r = 1] = [8, 9]
+    console.log(p, q, r)
+
+    /*=========== Objects =============
+    -) in objects variable names should be same as property name
+    */
+
+    const { name, openingHours, categories } = restaurant
+    console.log(name, openingHours, categories)
+
+    // To change the variable name we can use
+    const { name: restaurantName, openingHours: hours, categories: tags, } = restaurant
+    console.log(restaurantName, hours, tags)
+
+    // Default values
+    const { menu = [], starterMenu: starters = [] } = restaurant
+    console.log(menu, starters)
+
+    // Mutating variables
+    let a = 111
+    let b = 999
+    const obj = { a: 23, b: 7, c: 14 }
+      ({ a, b } = obj)
+    console.log(a, b)
+
+    // Nested objects
+    const { fri: { open: o, close: c }, } = openingHours
+    console.log(o, c)
+
+    let a1 = { b: 1, c: 2 }
+    console.log(Object.keys(a1))
+  </script>
+</body>
+
+</html>

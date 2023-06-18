@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Section 7: Get Ready for the Future: ES6 / ES2015</title>
+
+    <style>
+        .box {
+            width: 200px;
+            padding: 60px;
+            text-align: center;
+            font-size: 30px;
+            margin-top: 50px;
+        }
+
+        .green {
+            background-color: green;
+        }
+
+        .blue {
+            background-color: dodgerblue;
+        }
+
+        .orange {
+            background-color: orangered;
+        }
+    </style>
+
+</head>
+
+<body>
+    <h1>Section 7: Get Ready for the Future: ES6 / ES2015</h1>
+
+    <div class="box green">I'm green!</div>
+    <div class="box blue">I'm blue!</div>
+    <div class="box orange">I'm orange!</div>
+
+    <script>
+
+        // ES5
+        function SmithPerson(firstName, yearOfBirth, lastName, nationality) {
+
+            lastName === undefined ? lastName = 'Smith' : lastName = lastName;
+            nationality === undefined ? nationality = 'american' : nationality = nationality;
+
+            this.firstName = firstName;
+            this.lastName = lastName;
+            this.yearOfBirth = yearOfBirth;
+            this.nationality = nationality;
+        }
+
+
+        //ES6
+        function SmithPerson(firstName, yearOfBirth, lastName = 'Smith', nationality = 'american') {
+            this.firstName = firstName;
+            this.lastName = lastName;
+            this.yearOfBirth = yearOfBirth;
+            this.nationality = nationality;
+        }
+
+
+        var john = new SmithPerson('John', 1990);
+        var emily = new SmithPerson('Emily', 1983, 'Diaz', 'spanish');
+
+    </script>
+</body>
+
+</html>

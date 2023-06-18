@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<script>
+
+    // AJAX call
+    // How to make an ajax call..
+
+    // Step1: Create a XMLHttpRequest() and assign it to an variable.
+    const request = new XMLHttpRequest()
+    //Step2: use the open property to add config to the object
+    request.open('GET', 'https://restcountries.eu/rest/v2/name/portugal')
+    //Step3: Send the request using send property
+    request.send()
+    // As it is an asynchronous code we need to add eventListner for on Load of data
+    request.addEventListener('load', () => console.log(request.responseText))
+    //The data received is in XML (as we made an ajax call) we can convert that data to JSON using JSON.parse(_result_)
+
+</script>
+
+<body>
+
+</body>
+
+</html>
