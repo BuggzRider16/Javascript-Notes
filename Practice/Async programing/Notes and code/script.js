@@ -48,7 +48,11 @@ const countriesContainer = document.querySelector('.countries');
 // getCountryData('usa');
 // getCountryData('germany');
 
-/*============ Welcome to Callback Hell ==================*/
+/*============ Issues with callbacks ==================
+-) When our code grows horizontally due to callbacks instead of growing vertically, then it is called callback hell.
+-) It biggest drawback of callback hell is inversion of control. It means giving control of a part of code to another. 
+   For eg. if parent function code has bugz the whole tree will fail, like callbacks called twice or not called at all.
+*/
 
 /*
 const getCountryAndNeighbour = function (country) {

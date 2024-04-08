@@ -41,7 +41,7 @@
            1. New {} is created
            2. function is called, this = {}
            3. {} linked to prototype (creates a __proto__ property on the new instance and connects it 
-               with the contruction function.prototype property.)
+               with the contruction function.prototype property.) OR {}.__proto__ = contruction function.prototype
            4. function automatically return {}.
         */
 
@@ -51,9 +51,9 @@
             this.birthYear = birthYear;
 
             // Never to this!
-            // this.calcAge = function () {
-            //   console.log(2037 - this.birthYear);
-            // };
+            this.calcAge = function () {
+              console.log(2037 - this.birthYear);
+            };
         };
 
         const jonas = new Person('Jonas', 1991);
