@@ -1,14 +1,22 @@
 'use strict';
 
+const wait = function (seconds) {
+  return new Promise(function (resolve) {
+    setTimeout(() => {
+      console.log(
+        `Waiting done for ${seconds} seconds printed inside wait promise`
+      );
+      resolve(`Waiting done for ${seconds} seconds`);
+    }, seconds * 1000);
+  });
+};
+
 /*================= Asynchronous JS ================
 -) 
 */
 
-
 const btn = document.querySelector('.btn-country');
 const countriesContainer = document.querySelector('.countries');
-
-
 
 /*======= Our First AJAX Call: XMLHttpRequest===========
 -) First we create new XMLHttpRequest object and on its .open() to call the URL
@@ -94,7 +102,7 @@ setTimeout(() => {
   console.log('1 second passed');
   setTimeout(() => {
     console.log('2 seconds passed');
-    setTimeout(() => {
+    setTimeout(() => { 
       console.log('3 second passed');
       setTimeout(() => {
         console.log('4 second passed');
@@ -109,6 +117,11 @@ setTimeout(() => {
   -) Essentially, a promise is a returned object to which you attach callbacks, instead of passing callbacks into a function.
   -) A promise has a 'then' property which is executed when a promise is completed/rejected, which receives two functions as
      callback, first one runs if the promise is successful, second runs when the promise is failed.
+  -) Data returned by promise is not mutable.
+  -) A promise has 3 states: 
+     1) pending
+     2) fulfilled (success)
+     3) rejected (error)
   -) Unlike old-fashioned passed-in callbacks, a promise comes with some guarantees:
      -) Callbacks added with then() will never be invoked before the completion of the current run of the JavaScript event loop.
      -) These callbacks will be invoked even if they were added after the success or failure of the asynchronous operation that the promise represents.
@@ -119,10 +132,17 @@ setTimeout(() => {
      -) If .then() is attached before .catch(), then .catch() can also handle errors in then block
      -) if .catch() is attached before .then(), then it can handle the error from the promise not from .then() and allow the .then() handler to still get 
         called which will expect input from catch return. 
+  -) Finally
+      -) We have a finally (same as then and catch). 
+      -) It will run at the end of chain always( no matter if the promise is resolved or rejected).
+      -) Finally works on the value returned by catch.
+  -) Microtask Queue
+      -).then of a promise is in MicroTask queue and other asynchronous tasks like setTimeout() are in callback queue
+      -) Microtask have more priority than callback queue.
+      -) So if we have a promise and timmer taking same time to complete ,
+      -) promise will be executed first (irrespective of the timmers time, which may delay the timer)
   -) Promise based output questions -> https://codeburst.io/javascript-interview-questions-promises-1ab2fb7f0467
 */
-
-
 // Consuming Promises
 // const getCountryData = function (country) {
 //   fetch(`https://restcountries.eu/rest/v2/name/${country}`)
@@ -211,6 +231,32 @@ setTimeout(() => {
 
 // getCountryData('australia');
 
+/*=============== Promise static funtions ==================
+-) Promise.all
+   -) It takes an iterable of promises and resolves only when all of the promises are either fullfilled or any of them is rejected.
+   -) Promise.all() is rejected instantaneously if any of the promises passed to it fails, and it will return the error of that rejected promise.
+   -) In case of success it returns an array of resolved data, but in case of failure of any one promise, it will return error.
+*/
+
+const result = Promise.all([wait(1), wait(3), wait(5)]);
+result.then(item => console.log(item));
+/*
+-) Promise.allSettled()
+   -) It is same as that of Promise.all(), but in case of single promise failure it will wait for all the remaining promises to get settled.
+   -) It will return an array of success/error object of respective fullfilled/rejected promises.
+*/
+
+/*
+-) Promise.race()
+   -) It returns the value of first settled promise. Settled promise can be fulfilled or rejected.
+*/
+
+/*
+-) Promise.any()
+   -) It returns the value fulfilled value. 
+   -) If all the promises fail it will give an agregate error. So in catch we need to extract the error array from error.errors key.
+*/
+
 /*=============== The Event Loop ==================
 -) A tick is the dequeuing of an event from the "event loop queue" and the execution of said event.
 -) Process tick -> Every time the event loop takes a full trip, we call it a tick.
@@ -248,14 +294,17 @@ const lotteryPromise = new Promise(function (resolve, reject) {
   }, 2000);
 });
 
-lotteryPromise
-  .then(res => console.log(res))
-  .catch(err => console.error(err));
+lotteryPromise.then(res => console.log(res)).catch(err => console.error(err));
 
 // Promisifying setTimeout (Promisifying means converting a callback based execution into a promise based function)
-const wait = function (seconds) {
+const waitEg = function (seconds) {
   return new Promise(function (resolve) {
-    setTimeout(resolve, seconds * 1000);
+    setTimeout(() => {
+      console.log(
+        `Waiting done for ${seconds} seconds printed inside wait promise`
+      );
+      resolve(`Waiting done for ${seconds} seconds`);
+    }, seconds * 1000);
   });
 };
 
@@ -289,7 +338,6 @@ wait(1)
 
 Promise.resolve('abc').then(x => console.log(x));
 Promise.reject(new Error('Problem!')).catch(x => console.error(x));
-
 
 ///////////////////////////////////////
 // Promisifying the Geolocation API
@@ -331,3 +379,42 @@ const whereAmI = function () {
 };
 
 btn.addEventListener('click', whereAmI);
+
+/*================= Async and Await ==================
+ -) Async/Await provides a cleaner way to use Promises
+ -) A function defined async means that the function will get paused when the async task is running in background, but the
+    overvall execution will continue
+ -) We use await before the async funtion to show that this function should wait for the promise to return a value.
+ -) Async funtion always return a promise.
+
+ -) Await makes the function wait till the promise is settled.Whenever an async function encounters await with a promise
+    it removes the function from the call stack and waits for the promise to get settled.
+*/
+
+async function getData(){
+  return "hello"
+}
+
+getData().then(res => console.log(res)) //hello
+
+/*
+ -) Execution of async/await flow
+    -) Considering the below example, first "Hello world" will be printed then once the function encounters the first await it
+       will suspend the function execution till p1 is settled
+*/
+
+const p1 = new Promise((resolve,reject)=>setTimeout(resolve("P1 completed"),1000))
+const p2 = new Promise((resolve,reject)=>setTimeout(resolve("P2 completed"),2000))
+
+const handlePromise1 = async() => {
+  console.log("Hello world")
+
+  const res1 = await p1
+  console.log("p1 result")
+  console.log(res1)
+
+  const res2 = await p2
+  console.log("p2 result")
+  console.log(res2)
+}
+handlePromise1()
