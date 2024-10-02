@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Section 7: Get Ready for the Future: ES6 / ES2015</title>
+
+    <style>
+        .box {
+            width: 200px;
+            padding: 60px;
+            text-align: center;
+            font-size: 30px;
+            margin-top: 50px;
+        }
+
+        .green {
+            background-color: green;
+        }
+
+        .blue {
+            background-color: dodgerblue;
+        }
+
+        .orange {
+            background-color: orangered;
+        }
+    </style>
+
+</head>
+
+<body>
+    <h1>Section 7: Get Ready for the Future: ES6 / ES2015</h1>
+
+    <div class="box green">I'm green!</div>
+    <div class="box blue">I'm blue!</div>
+    <div class="box orange">I'm orange!</div>
+
+    <script>
+
+        const restaurant = {
+            name: 'Classico Italiano',
+            location: 'Via Angelo Tavanti 23, Firenze, Italy',
+            categories: ['Italian', 'Pizzeria', 'Vegetarian', 'Organic'],
+            starterMenu: ['Focaccia', 'Bruschetta', 'Garlic Bread', 'Caprese Salad'],
+            mainMenu: ['Pizza', 'Pasta', 'Risotto'],
+
+            // ES6 enhanced object literals
+            openingHours,
+
+            order(starterIndex, mainIndex) {   //ES6 enhanced function literal, here we can directly give the name.
+                return [this.starterMenu[starterIndex], this.mainMenu[mainIndex]]
+            },
+
+            orderDelivery({ starterIndex = 1, mainIndex = 0, time = '20:00', address }) {
+                console.log(
+                    `Order received! ${this.starterMenu[starterIndex]} and ${this.mainMenu[mainIndex]} will be delivered to ${address} at ${time}`
+                )
+            },
+
+            orderPasta(ing1, ing2, ing3) {
+                console.log(
+                    `Here is your declicious pasta with ${ing1}, ${ing2} and ${ing3}`
+                )
+            },
+
+            orderPizza(mainIngredient, ...otherIngredients) {
+                console.log(mainIngredient)
+                console.log(otherIngredients)
+            },
+        }
+
+        /*========= Sort-circuting =========
+        -) || is OR short-circut, which return the first truthy value.
+        -) If first value is true , it will not evaluate the second value
+        */
+
+        // 
+
+        console.log(3 || 'Jonas') //3
+        console.log('' || 'Jonas') // 'Jonas'
+        console.log(true || 0) //true
+        console.log(undefined || null)  //null
+        console.log(undefined || 0 || '' || 'Hello' || 23 || null) //'Hello'
+
+        // Old way to set a value 
+        // restaurant.numGuests = 0
+        // const guests1 = restaurant.numGuests ? restaurant.numGuests : 10
+        // console.log(guests1)
+
+        // New way
+        restaurant.numGuests = 0
+        const guests2 = restaurant.numGuests || 10
+        console.log(guests2) // 10, which is not expected and is solved by Nullish Coalescing operator
+
+        // -) ?? is Nullish Coalescing operator, which only consider null and undefined values as false (not 0 or '' )
+
+        restaurant.numGuests = 0
+        const guests3 = restaurant.numGuests ?? 10
+        console.log(guests3)
+
+
+        // -) && is AND short-circut, which return the first falsy value. If first value is false , it will not evaluate the second value
+
+        console.log(0 && 'Jonas') //0
+        console.log(7 && 'Jonas') //'Jonas'
+
+        console.log('Hello' && 23 && null && 'jonas') //null
+
+        // Practical example
+        if (restaurant.orderPizza) {
+            restaurant.orderPizza('mushrooms', 'spinach')
+        }
+
+        restaurant.orderPizza && restaurant.orderPizza('mushrooms', 'spinach')
+
+    </script>
+</body>
+
+</html>
