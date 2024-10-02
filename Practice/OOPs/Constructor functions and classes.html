@@ -50,7 +50,7 @@
             this.firstName = firstName;
             this.birthYear = birthYear;
 
-            // Never to this!
+            // Never do this!
             this.calcAge = function () {
               console.log(2037 - this.birthYear);
             };
@@ -63,7 +63,7 @@
         console.log(jonas instanceof Person); // instanceof operator tells us whether a object is an instance of a constructor function or not
 
         /*================= Prototypes =========================
-        -) Every function in JS automatically have a property of Prototype.
+        -) Every object in JS automatically have a property of Prototype.
         -) Every object created from a constructor function gets access to the methods
            and properties that we define on the contructor function's prototype property.
         -) It is used to show inheritance as the method created on prototype property is not
@@ -261,7 +261,8 @@
         }
 
         var car = new Car();
-        console.log(car.num_wheels); // 37
+        console.log(car); // 4
+        console.log(car.num_wheels); // 4
 
 
         function Car() {
@@ -270,13 +271,14 @@
         }
 
         var car = new Car();
-        alert(car.num_wheels); // 4
+        console.log(car.num_wheels); // 4
 
         const Person2 = function (firstName, birthYear) {
             return ''
         };
 
-        const personE1 = new Person2('Jonas', 1991) //{}
+        const personE1 = new Person2('Jonas', 1991)
+        console.log(personE1) //{}
 
     </script>
 </head>
