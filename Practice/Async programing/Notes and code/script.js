@@ -59,7 +59,7 @@ const countriesContainer = document.querySelector('.countries');
 /*============ Issues with callbacks ==================
 -) When our code grows horizontally due to callbacks instead of growing vertically, then it is called callback hell.
 -) It biggest drawback of callback hell is inversion of control. It means giving control of a part of code to another. 
-   For eg. if parent function code has bugz the whole tree will fail, like callbacks called twice or not called at all.
+   For eg. if parent function code has a bug the whole tree will fail, like callbacks called twice or not called at all.
 */
 
 /*
@@ -126,21 +126,21 @@ setTimeout(() => {
      -) Callbacks added with then() will never be invoked before the completion of the current run of the JavaScript event loop.
      -) These callbacks will be invoked even if they were added after the success or failure of the asynchronous operation that the promise represents.
      -) Multiple callbacks may be added by calling then() several times. They will be invoked one after another, in the order in which they were inserted.
-  -) We have finally which always runs if the promise is completed or rejected.The finally block doesn’t receive any value, 
-     and anything returned from finally is not considered in the then block.
   -) We can attach then() and catch() in two ways -> 
      -) If .then() is attached before .catch(), then .catch() can also handle errors in then block
      -) if .catch() is attached before .then(), then it can handle the error from the promise not from .then() and allow the .then() handler to still get 
         called which will expect input from catch return. 
   -) Finally
+      -) We have finally which always runs if the promise is completed or rejected.The finally block doesn’t receive any value, 
+         and anything returned from finally is not considered in the then block.
       -) We have a finally (same as then and catch). 
       -) It will run at the end of chain always( no matter if the promise is resolved or rejected).
       -) Finally works on the value returned by catch.
   -) Microtask Queue
       -).then of a promise is in MicroTask queue and other asynchronous tasks like setTimeout() are in callback queue
       -) Microtask have more priority than callback queue.
-      -) So if we have a promise and timmer taking same time to complete ,
-      -) promise will be executed first (irrespective of the timmers time, which may delay the timer)
+      -) So if we have a promise and timmer taking same time to complete, promise will be executed first 
+         (irrespective of the timmers time, which may delay the timer).
   -) Promise based output questions -> https://codeburst.io/javascript-interview-questions-promises-1ab2fb7f0467
 */
 // Consuming Promises
@@ -253,7 +253,7 @@ result.then(item => console.log(item));
 
 /*
 -) Promise.any()
-   -) It returns the value fulfilled value. 
+   -) It returns the fulfilled value. 
    -) If all the promises fail it will give an agregate error. So in catch we need to extract the error array from error.errors key.
 */
 
