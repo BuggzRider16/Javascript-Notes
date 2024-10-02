@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+  <body>
+    <script>
+      /*================= this keyword ============
+        -) this keyword in global scope points to global object(window in case of browser) of the runtime env.
+        -) this keyword points to global object if a function is called directly in global scope but it points
+           to undefined in strict mode. This process is called this substitution.
+            -) For ex    
+                     function x(){
+                        console.log(this)
+                     }
+
+                     x(); // it means window.x() in non-strict mode
+        -) this inside the dom element refers to html object.
+           -) For ex
+                     <button onclick=alert(this)> hello </button> //this here will refer to button html object
+        */
+    </script>
+  </body>
+</html>

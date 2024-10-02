@@ -1,34 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <title>Section 7: Get Ready for the Future: ES6 / ES2015</title>
-
-    <style>
-        .box {
-            width: 200px;
-            padding: 60px;
-            text-align: center;
-            font-size: 30px;
-            margin-top: 50px;
-        }
-
-        .green {
-            background-color: green;
-        }
-
-        .blue {
-            background-color: dodgerblue;
-        }
-
-        .orange {
-            background-color: orangered;
-        }
-    </style>
-
-</head>
-
 <body>
     <h1>Section 7: Get Ready for the Future: ES6 / ES2015</h1>
 
@@ -39,20 +10,29 @@
     <script>
 
         /* ======== Arrays=======
-        -) We can use new Array() method to create an array.
-        -) new Array(1,2,3,4,5) will create new array //[1,2,3,4,5].
-        -) new Array(7), will create a new empty array of 7 unfilled positions.
-        -) To fill the unfilled position we will then use fill() method.
-        -) fill() will fill all the positon with the element mentioned.
+        -) Ways to create array in js
+            -) Array Literal
+                -) const myArray = [1, 2, 3, "hello", true]; 
+            -) Array Constructor
+                -) const myArray = new Array(1, 2, 3, "hello", true); 
+                -) new Array(7), will create a new empty array of 7 unfilled positions.
+                -) To fill the unfilled position we will then use fill() method.
+                -) fill() will fill all the positon with the element mentioned.
+            -) Array.from()
+                -) const myArray = Array.from("hello"); // Creates an array ["h", "e", "l", "l", "o"]
+                -) const y = Array.from({ length: 7 }, () => 1); //Array.from() is same as new Array(), but it is kind of oneliner.
+            -) Array.of()
+                -) const myArray = Array.of(1, 2, 3);
         */
 
 
         const arr = [1, 2, 3, 4, 5, 6, 7];
-        console.log(new Array(1, 2, 3, 4, 5, 6, 7));
+        console.log(new Array(1, 2, 3, 4, 5, 6, 7));   // [1, 2, 3, 4, 5, 6, 7]
 
         // Empty arrays + fill method
         const x = new Array(7); //[empty X 7]
         console.log(x);
+
         // console.log(x.map(() => 5));
         x.fill(1, 3, 5); //[empty X 3, 1,1,empty X 2]
         x.fill(1); //[1,1,1,1,1,1,1]
@@ -61,20 +41,21 @@
         arr.fill(23, 2, 6);
         console.log(arr);
 
-        // Array.from() is same as new Array(), but it is kind of oneliner.
 
         const y = Array.from({ length: 7 }, () => 1);
-        console.log(y);
+        console.log(y);  //[1,1,1,1,1,1,1]
 
         const z = Array.from({ length: 7 }, (_, i) => i + 1);
-        console.log(z);
+        console.log(z); //[1, 2, 3, 4, 5, 6, 7]
 
 
+
+        // creating an array of nodelist so that we can use array methods.
         labelBalance.addEventListener('click', function () {
             const movementsUI = Array.from(
                 document.querySelectorAll('.movements__value'),
                 el => Number(el.textContent.replace('€', ''))
-            );// creating an array of nodelist so that we can use array methods.
+            );
             console.log(movementsUI);
 
             const movementsUI2 = [...document.querySelectorAll('.movements__value')]; //another way to create a nodelist to array.
