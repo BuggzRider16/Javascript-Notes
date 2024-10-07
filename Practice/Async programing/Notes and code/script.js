@@ -133,7 +133,6 @@ setTimeout(() => {
   -) Finally
       -) We have finally which always runs if the promise is completed or rejected.The finally block doesn’t receive any value, 
          and anything returned from finally is not considered in the then block.
-      -) We have a finally (same as then and catch). 
       -) It will run at the end of chain always( no matter if the promise is resolved or rejected).
       -) Finally works on the value returned by catch.
   -) Microtask Queue
